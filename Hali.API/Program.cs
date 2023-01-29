@@ -40,8 +40,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOptions"));
-builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("ClientOptions"));
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -62,30 +60,10 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(opt =>
     opt.User.RequireUniqueEmail= true;
     opt.Password.RequireNonAlphanumeric=true;
 }).AddEntityFrameworkStores<AppDbContext>();
-
-builder.Services.AddAuthentication(opt =>
-{
-    opt.DefaultAuthenticateScheme=JwtBearerDefaults.AuthenticationScheme;
-    opt.DefaultChallengeScheme=JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
-{
-    var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOption>();
-
-    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-    {
-
-        ValidateIssuerSigningKey = true,
-        ValidateAudience = true,
-        ValidateIssuer = true,
-        ValidateLifetime = true,
-        ClockSkew= TimeSpan.Zero,
-
-        ValidIssuer = tokenOptions?.Issuer,
-        ValidAudience = tokenOptions.Audiences[0],
-        IssuerSigningKey = SignService.GetSymmmetricSecurityKey(tokenOptions.SecurityKey)
-
-    };
-});
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOptions"));
+builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("ClientOptions"));
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<CustomTokenOption>();
+builder.Services.AddCustomTokenAuth(tokenOptions);
 
 builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 
