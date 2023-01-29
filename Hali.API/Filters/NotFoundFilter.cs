@@ -35,7 +35,7 @@ namespace Hali.API.Filters
             }
 
             context.Result = new NotFoundObjectResult(ResponseDto<NoContent>
-                                                        .Fail(($"{typeof(TEntity).Name} {id} not founds"), 404, true));
+                                                        .Fail(($"{typeof(TEntity).Name} {id} not found"), 404, true));
         }
     }
 }
