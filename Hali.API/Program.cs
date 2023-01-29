@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Hali.Service.Services;
 using Hali.Shared.Services;
 using FluentValidation.AspNetCore;
-using Hali.Shared.Extentsions;
+using Hali.Shared.Extensions;
 using Hali.API.Validations;
 using Hali.API.Filters;
 

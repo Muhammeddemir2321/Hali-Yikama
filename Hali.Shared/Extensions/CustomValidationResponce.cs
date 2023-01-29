@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Hali.Shared.Extentsions
+namespace Hali.Shared.Extensions
 {
     public static class CustomValidationResponce
     {
