@@ -2,17 +2,12 @@
 using Hali.Shared.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hali.Shared.Extensions
 {
     public static class CustomJwtAuth
     {
-        public static void AddCustomTokenAuth(this IServiceCollection services,CustomTokenOption tokenOptions)
+        public static void AddCustomTokenAuth(this IServiceCollection services, CustomTokenOption tokenOptions)
         {
             services.AddAuthentication(opt =>
             {

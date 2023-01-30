@@ -1,8 +1,5 @@
 ﻿using Hali.Core.DTOs;
-using Hali.Core.Models;
 using Hali.Core.Services;
-using Hali.Service.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hali.API.Controllers

@@ -19,9 +19,9 @@ namespace Hali.Service.Services
         private readonly IGenericRepository<UserRefreshToken> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AuthenticationService(IOptions<List<Client>> options,ITokenService tokenService,UserManager<AppUser> userManager,IGenericRepository<UserRefreshToken> repository,IUnitOfWork unitOfWork)
+        public AuthenticationService(IOptions<List<Client>> options, ITokenService tokenService, UserManager<AppUser> userManager, IGenericRepository<UserRefreshToken> repository, IUnitOfWork unitOfWork)
         {
-            _clients= options.Value;
+            _clients = options.Value;
             _tokenService = tokenService;
             _userManager = userManager;
             _repository = repository;
@@ -30,7 +30,7 @@ namespace Hali.Service.Services
 
         public async Task<ResponseDto<TokenDto>> CreateTokenAsync(SignInDto signInDto)
         {
-            if(signInDto==null) throw new ArgumentNullException(nameof(signInDto));
+            if (signInDto == null) throw new ArgumentNullException(nameof(signInDto));
 
             var user = await _userManager.FindByEmailAsync(signInDto.Email);
 
@@ -49,8 +49,8 @@ namespace Hali.Service.Services
                 }
                 else
                 {
-                    userRefreshToken.Code=tokenDto.RefreshToken;
-                    userRefreshToken.Expiration=tokenDto.RefreshTokenExpiration;
+                    userRefreshToken.Code = tokenDto.RefreshToken;
+                    userRefreshToken.Expiration = tokenDto.RefreshTokenExpiration;
                 }
 
                 await _unitOfWork.CommitAsync();
@@ -59,32 +59,32 @@ namespace Hali.Service.Services
             }
 
             return ResponseDto<TokenDto>.Fail("Bilinmeyen bir hata oluştu", 500, false);
-            
+
         }
 
         public ResponseDto<ClientTokenDto> CreateTokenByClientAsync(ClientSignInDto clientSignInDto)
         {
             var client = _clients.SingleOrDefault(x => x.Id == clientSignInDto.ClientId && x.Secret == clientSignInDto.ClientSecret);
 
-            if(client== null)
+            if (client == null)
             {
-                ResponseDto<ClientTokenDto>.Fail("ClientId or ClientSecret not Found",404,true);
+                ResponseDto<ClientTokenDto>.Fail("ClientId or ClientSecret not Found", 404, true);
             }
 
-            var clientTokenDto=_tokenService.CreateTokenByClient(client);
+            var clientTokenDto = _tokenService.CreateTokenByClient(client);
 
             return ResponseDto<ClientTokenDto>.Succes(clientTokenDto, 200);
         }
 
         public async Task<ResponseDto<TokenDto>> CreateTokenByRefreshTokenAsync(string refreshToken)
         {
-            var existRefreshToken=await _repository.Where(x=>x.Code==refreshToken).SingleOrDefaultAsync();
+            var existRefreshToken = await _repository.Where(x => x.Code == refreshToken).SingleOrDefaultAsync();
 
             if (existRefreshToken == null) ResponseDto<TokenDto>.Fail("Refresh token not found", 404, true);
 
             var user = await _userManager.FindByIdAsync(existRefreshToken.UserId);
 
-            if(user == null) ResponseDto<TokenDto>.Fail("User not found", 404, true);
+            if (user == null) ResponseDto<TokenDto>.Fail("User not found", 404, true);
 
             var tokenDto = _tokenService.CreateToken(user);
 

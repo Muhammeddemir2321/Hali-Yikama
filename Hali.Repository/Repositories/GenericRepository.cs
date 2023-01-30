@@ -1,15 +1,10 @@
 ﻿using Hali.Core.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Hali.Repository.Repositories
 {
-    public class GenericRepository<TEntity> :IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
         protected readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -38,8 +33,8 @@ namespace Hali.Repository.Repositories
         public async Task<TEntity?> GetByIdAsync(int id)
         {
             var entity = await _dbSet.FindAsync(id);
-            if(entity != null)
-                _context.Entry(entity).State= EntityState.Detached;
+            if (entity != null)
+                _context.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 

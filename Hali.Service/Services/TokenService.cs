@@ -27,12 +27,12 @@ namespace Hali.Service.Services
         private string CreateRefreshToken()
         {
             var numberByte = new Byte[32];
-            using var rnd=RandomNumberGenerator.Create();
+            using var rnd = RandomNumberGenerator.Create();
             rnd.GetBytes(numberByte);
             return Convert.ToBase64String(numberByte);
         }
 
-        private IEnumerable<Claim> GetClaims(AppUser appUser,List<string> audiences)
+        private IEnumerable<Claim> GetClaims(AppUser appUser, List<string> audiences)
         {
             var userList = new List<Claim>
             {
@@ -41,8 +41,8 @@ namespace Hali.Service.Services
                 new Claim(ClaimTypes.Name,appUser.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
             };
-            
-            userList.AddRange(audiences.Select(x=>new Claim(JwtRegisteredClaimNames.Aud,x)));
+
+            userList.AddRange(audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
             return userList;
         }
 
@@ -54,7 +54,7 @@ namespace Hali.Service.Services
                 new Claim(JwtRegisteredClaimNames.Sub,client.Id.ToString())
             };
 
-            claims.AddRange(client.Audiences.Select(x=>new Claim(JwtRegisteredClaimNames.Aud,x)));
+            claims.AddRange(client.Audiences.Select(x => new Claim(JwtRegisteredClaimNames.Aud, x)));
             return claims;
         }
 
@@ -68,10 +68,10 @@ namespace Hali.Service.Services
 
             JwtSecurityToken jwtSecurityToken = new JwtSecurityToken(
                 issuer: _tokenOption.Issuer,
-                expires:accessTokenExpiration,
-                notBefore:DateTime.Now,
-                claims:GetClaims(appUser,_tokenOption.Audiences),
-                signingCredentials:signingCredentials
+                expires: accessTokenExpiration,
+                notBefore: DateTime.Now,
+                claims: GetClaims(appUser, _tokenOption.Audiences),
+                signingCredentials: signingCredentials
                 );
 
             var tokenHandler = new JwtSecurityTokenHandler();

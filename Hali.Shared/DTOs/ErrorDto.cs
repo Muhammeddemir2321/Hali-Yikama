@@ -5,7 +5,7 @@
         public List<string> Errors { get; private set; } = new List<string>();
         public bool IsShow { get; private set; }
 
-        public ErrorDto(string error,bool isShow)
+        public ErrorDto(string error, bool isShow)
         {
             Errors.Add(error);
             IsShow = isShow;

@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace Hali.Core.Services
 {
-    public interface IService<TEntity,TDto> where TEntity : class where TDto: class
+    public interface IService<TEntity, TDto> where TEntity : class where TDto : class
     {
         Task<ResponseDto<IEnumerable<TDto>>> GetAllAsync();
         Task<ResponseDto<TDto>> GetByIdAsync(int id);

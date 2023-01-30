@@ -3,7 +3,7 @@ using Hali.Core.DTOs;
 
 namespace Hali.API.Validations
 {
-    public class CustomerCreateDtoValidator:AbstractValidator<CustomerCreateDto>
+    public class CustomerCreateDtoValidator : AbstractValidator<CustomerCreateDto>
     {
         public CustomerCreateDtoValidator()
         {

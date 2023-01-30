@@ -19,13 +19,13 @@ namespace Hali.Shared.DTOs
         }
         public static ResponseDto<T> Fail(ErrorDto errorDto, int statusCode)
         {
-            return new ResponseDto<T> { Error = errorDto, StatusCode = statusCode, IsSuccessful=false };
+            return new ResponseDto<T> { Error = errorDto, StatusCode = statusCode, IsSuccessful = false };
         }
         public static ResponseDto<T> Fail(string error, int statusCode, bool isShow)
         {
             var errorDto = new ErrorDto(error, isShow);
 
-            return new ResponseDto<T> { Error = errorDto, StatusCode = statusCode, IsSuccessful=false };
+            return new ResponseDto<T> { Error = errorDto, StatusCode = statusCode, IsSuccessful = false };
         }
     }
 }

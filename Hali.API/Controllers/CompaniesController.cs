@@ -28,6 +28,6 @@ namespace Hali.API.Controllers
         {
             return CreateActionResult(await _companyService.AddAsync(companyDto));
         }
-        
+
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Hali.Core.DTOs;
 using Hali.Core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Hali.API.Controllers
@@ -25,7 +24,7 @@ namespace Hali.API.Controllers
         [HttpPost]
         public IActionResult CreateTokenByClient(ClientSignInDto clientSignInDto)
         {
-            return CreateActionResult( _authenticationService.CreateTokenByClientAsync(clientSignInDto));
+            return CreateActionResult(_authenticationService.CreateTokenByClientAsync(clientSignInDto));
         }
 
         [HttpPost]

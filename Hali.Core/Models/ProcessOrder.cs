@@ -1,6 +1,6 @@
 ﻿namespace Hali.Core.Models
 {
-    public class ProcessOrder:BaseEntitiy
+    public class ProcessOrder : BaseEntitiy
     {
         public double Price { get; set; }
         public int ProcessId { get; set; }

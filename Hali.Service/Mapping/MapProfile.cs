@@ -4,7 +4,7 @@ using Hali.Core.Models;
 
 namespace Hali.Service.Mapping
 {
-    public class MapProfile:Profile
+    public class MapProfile : Profile
     {
         public MapProfile()
         {
@@ -18,10 +18,26 @@ namespace Hali.Service.Mapping
             CreateMap<ProcessUpdateDto, Process>();
             CreateMap<AppUser, AppUserDto>().ReverseMap();
             CreateMap<AppUser, CompanyWithUserDto>();
-                //.ForMember(dest => dest.Id, opt =>
-                //    opt.MapFrom(src => src.Id))
-                //.ForMember(dest => dest.Company, opt =>
-                //    opt.MapFrom(src => src.Company));
+            CreateMap<OrderWithProcessOrderCreateDto, Order>();
+            CreateMap<OrderWithProcessOrderCreateDto, ProcessOrder>();
+            CreateMap<ProcessOrder, OrderWithProcessOrderDto>();
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+//.ForMember(dest => dest.Id, opt =>
+//    opt.MapFrom(src => src.Id))
+//.ForMember(dest => dest.Company, opt =>
+//    opt.MapFrom(src => src.Company));

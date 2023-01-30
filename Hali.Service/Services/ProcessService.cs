@@ -4,7 +4,6 @@ using Hali.Core.Models;
 using Hali.Core.Repositories;
 using Hali.Core.Services;
 using Hali.Core.UnitOfWorks;
-using Hali.Repository.UnitOfWorks;
 using Hali.Shared.DTOs;
 
 namespace Hali.Service.Services

@@ -26,11 +26,11 @@ namespace Hali.API.Filters
                 return;
             }
 
-            var anyEntity = await _repository.AnyAsync(i=>i.Id==(int)id);
+            var anyEntity = await _repository.AnyAsync(i => i.Id == (int)id);
 
             if (anyEntity)
             {
-                await next.Invoke(); 
+                await next.Invoke();
                 return;
             }
 

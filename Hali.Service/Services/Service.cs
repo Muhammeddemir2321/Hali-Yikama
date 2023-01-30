@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Hali.Core.DTOs;
-using Hali.Core.Models;
 using Hali.Core.Repositories;
 using Hali.Core.Services;
 using Hali.Core.UnitOfWorks;
@@ -23,12 +22,12 @@ namespace Hali.Service.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async  Task<ResponseDto<TDto>> AddAsync(TDto dto)
+        public async Task<ResponseDto<TDto>> AddAsync(TDto dto)
         {
-            var newEntity=_mapper.Map<TEntity>(dto);
+            var newEntity = _mapper.Map<TEntity>(dto);
             await _repository.AddAsync(newEntity);
             await _unitOfWork.CommitAsync();
-            var newDto=_mapper.Map<TDto>(newEntity);
+            var newDto = _mapper.Map<TDto>(newEntity);
             return ResponseDto<TDto>.Succes(newDto, 201);
         }
 
@@ -49,16 +48,16 @@ namespace Hali.Service.Services
         public async Task<ResponseDto<IEnumerable<TDto>>> GetAllAsync()
         {
             var entities = await _repository.GetAll().ToListAsync();
-            var dto=_mapper.Map<List<TDto>>(entities);
-            return ResponseDto<IEnumerable<TDto>>.Succes(dto,200);
+            var dto = _mapper.Map<List<TDto>>(entities);
+            return ResponseDto<IEnumerable<TDto>>.Succes(dto, 200);
         }
 
         public async Task<ResponseDto<TDto>> GetByIdAsync(int id)
         {
-            var entity=await _repository.GetByIdAsync(id);
+            var entity = await _repository.GetByIdAsync(id);
             if (entity == null)
                 return ResponseDto<TDto>.Fail("not found id", 400, true);
-            var dto=_mapper.Map<TDto>(entity);
+            var dto = _mapper.Map<TDto>(entity);
             return ResponseDto<TDto>.Succes(dto, 200);
         }
 
@@ -84,7 +83,7 @@ namespace Hali.Service.Services
 
         public async Task<ResponseDto<NoContent>> UpdateAsync(TDto dto)
         {
-            var newEntity=_mapper.Map<TEntity>(dto);
+            var newEntity = _mapper.Map<TEntity>(dto);
             _repository.Update(newEntity);
             await _unitOfWork.CommitAsync();
             return ResponseDto<NoContent>.Succes(204);
@@ -92,7 +91,7 @@ namespace Hali.Service.Services
 
         public async Task<ResponseDto<IEnumerable<TDto>>> Where(Expression<Func<TEntity, bool>> expression)
         {
-            var dto=_mapper.Map<List<TDto>>(await _repository.Where(expression).ToListAsync());
+            var dto = _mapper.Map<List<TDto>>(await _repository.Where(expression).ToListAsync());
             return ResponseDto<IEnumerable<TDto>>.Succes(dto, 200);
         }
     }
