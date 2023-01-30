@@ -5,6 +5,7 @@ using Hali.Core.Repositories;
 using Hali.Core.Services;
 using Hali.Core.UnitOfWorks;
 using Hali.Shared.DTOs;
+using Microsoft.AspNetCore.Http;
 
 namespace Hali.Service.Services
 {
@@ -22,7 +23,7 @@ namespace Hali.Service.Services
             await _processRepository.AddAsync(newEntity);
             await _unitOfWork.CommitAsync();
             var newDto = _mapper.Map<ProcessDto>(newEntity);
-            return ResponseDto<ProcessDto>.Succes(newDto, 201);
+            return ResponseDto<ProcessDto>.Succes(newDto, StatusCodes.Status201Created);
         }
 
         public async Task<ResponseDto<NoContent>> UpdateAsync(ProcessUpdateDto dto)
@@ -30,7 +31,7 @@ namespace Hali.Service.Services
             var newEntity = _mapper.Map<Process>(dto);
             _processRepository.Update(newEntity);
             await _unitOfWork.CommitAsync();
-            return ResponseDto<NoContent>.Succes(204);
+            return ResponseDto<NoContent>.Succes(StatusCodes.Status204NoContent);
         }
     }
 }

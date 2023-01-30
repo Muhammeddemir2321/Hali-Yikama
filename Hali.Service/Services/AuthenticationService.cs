@@ -5,6 +5,7 @@ using Hali.Core.Repositories;
 using Hali.Core.Services;
 using Hali.Core.UnitOfWorks;
 using Hali.Shared.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -34,11 +35,11 @@ namespace Hali.Service.Services
 
             var user = await _userManager.FindByEmailAsync(signInDto.Email);
 
-            if (user == null) ResponseDto<TokenDto>.Fail("Email or Password is wrong", 400, true);
+            if (user == null) ResponseDto<TokenDto>.Fail("Email or Password is wrong", StatusCodes.Status400BadRequest, true);
             if (user != null)
             {
                 if (!await _userManager.CheckPasswordAsync(user, signInDto.Password))
-                    return ResponseDto<TokenDto>.Fail("Email or Password is wrong", 400, true);
+                    return ResponseDto<TokenDto>.Fail("Email or Password is wrong", StatusCodes.Status400BadRequest, true);
                 var tokenDto = _tokenService.CreateToken(user);
 
                 var userRefreshToken = await _repository.Where(x => x.UserId == user.Id).SingleOrDefaultAsync();
@@ -55,10 +56,10 @@ namespace Hali.Service.Services
 
                 await _unitOfWork.CommitAsync();
 
-                return ResponseDto<TokenDto>.Succes(tokenDto, 200);
+                return ResponseDto<TokenDto>.Succes(tokenDto, StatusCodes.Status201Created);
             }
 
-            return ResponseDto<TokenDto>.Fail("Bilinmeyen bir hata oluştu", 500, false);
+            return ResponseDto<TokenDto>.Fail("Bilinmeyen bir hata oluştu", StatusCodes.Status500InternalServerError, false);
 
         }
 
@@ -68,23 +69,23 @@ namespace Hali.Service.Services
 
             if (client == null)
             {
-                ResponseDto<ClientTokenDto>.Fail("ClientId or ClientSecret not Found", 404, true);
+                ResponseDto<ClientTokenDto>.Fail("ClientId or ClientSecret not Found", StatusCodes.Status404NotFound, true);
             }
 
             var clientTokenDto = _tokenService.CreateTokenByClient(client);
 
-            return ResponseDto<ClientTokenDto>.Succes(clientTokenDto, 200);
+            return ResponseDto<ClientTokenDto>.Succes(clientTokenDto, StatusCodes.Status201Created);
         }
 
         public async Task<ResponseDto<TokenDto>> CreateTokenByRefreshTokenAsync(string refreshToken)
         {
             var existRefreshToken = await _repository.Where(x => x.Code == refreshToken).SingleOrDefaultAsync();
 
-            if (existRefreshToken == null) ResponseDto<TokenDto>.Fail("Refresh token not found", 404, true);
+            if (existRefreshToken == null) ResponseDto<TokenDto>.Fail("Refresh token not found", StatusCodes.Status404NotFound, true);
 
             var user = await _userManager.FindByIdAsync(existRefreshToken.UserId);
 
-            if (user == null) ResponseDto<TokenDto>.Fail("User not found", 404, true);
+            if (user == null) ResponseDto<TokenDto>.Fail("User not found", StatusCodes.Status404NotFound, true);
 
             var tokenDto = _tokenService.CreateToken(user);
 
@@ -93,14 +94,14 @@ namespace Hali.Service.Services
 
             await _unitOfWork.CommitAsync();
 
-            return ResponseDto<TokenDto>.Succes(tokenDto, 200);
+            return ResponseDto<TokenDto>.Succes(tokenDto, StatusCodes.Status201Created);
         }
 
         public async Task<ResponseDto<NoContent>> RevokeRefreshTokenAsync(string refreshToken)
         {
             var existRefreshToken = await _repository.Where(x => x.Code == refreshToken).SingleOrDefaultAsync();
 
-            if (existRefreshToken == null) ResponseDto<TokenDto>.Fail("Refresh token not found", 404, true);
+            if (existRefreshToken == null) ResponseDto<TokenDto>.Fail("Refresh token not found", StatusCodes.Status404NotFound, true);
 
             _repository.Remove(existRefreshToken);
 
