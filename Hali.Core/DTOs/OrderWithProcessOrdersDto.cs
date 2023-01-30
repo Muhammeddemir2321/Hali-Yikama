@@ -1,6 +1,6 @@
 ﻿namespace Hali.Core.DTOs
 {
-    public class OrderWithProcessOrderDto : OrderDto
+    public class OrderWithProcessOrdersDto : OrderDto
     {
         public List<ProcessOrderDto> ProcessOrders { get; set; }
     }

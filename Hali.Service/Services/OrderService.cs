@@ -19,20 +19,31 @@ namespace Hali.Service.Services
             _processOrderRepository = processOrderRepository;
         }
 
-        public async Task<ResponseDto<OrderWithProcessOrderDto>> CreateOrderWithProcessOrderAsync(OrderWithProcessOrderCreateDto orderWithProcessOrderCreateDto)
+        public async Task<ResponseDto<OrderWithProcessOrdersDto>> CreateOrderWithProcessOrderAsync(OrderWithProcessOrdersCreateDto orderWithProcessOrdersCreateDto)
         {
-            var orderEntity = _mapper.Map<Order>(orderWithProcessOrderCreateDto);
+            var orderEntity = _mapper.Map<Order>(orderWithProcessOrdersCreateDto);
             await _orderRepository.AddAsync(orderEntity);
             await _unitOfWork.CommitAsync();
 
-            var processOrderEntity = _mapper.Map<ProcessOrder>(orderWithProcessOrderCreateDto);
-            processOrderEntity.OrderId = orderEntity.Id;
-            await _processOrderRepository.AddAsync(processOrderEntity);
+            //var processOrderEntities = _mapper.Map<List<ProcessOrder>>(orderWithProcessOrdersCreateDto.ProcessOrders);
+            //foreach (var item in processOrderEntities)
+            //{
+            //    item.OrderId = orderEntity.Id;
+            //}
+            //await _processOrderRepository.AddRangeAsync(processOrderEntities);
+            //await _unitOfWork.CommitAsync();
+
+            var orderWithProcessOrdersDto = _mapper.Map<OrderWithProcessOrdersDto>(orderEntity);
+
+            return ResponseDto<OrderWithProcessOrdersDto>.Succes(orderWithProcessOrdersDto, StatusCodes.Status201Created);
+        }
+
+        public async Task<ResponseDto<NoContent>> UpdateAsync(OrderUpdateDto orderUpdateDto)
+        {
+            var newEntity = _mapper.Map<Order>(orderUpdateDto);
+            _orderRepository.Update(newEntity);
             await _unitOfWork.CommitAsync();
-
-            var orderWithProcessOrderDto = _mapper.Map<OrderWithProcessOrderDto>(processOrderEntity);
-
-            return ResponseDto<OrderWithProcessOrderDto>.Succes(orderWithProcessOrderDto, StatusCodes.Status201Created);
+            return ResponseDto<NoContent>.Succes(StatusCodes.Status204NoContent);
         }
     }
 }

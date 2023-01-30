@@ -18,9 +18,12 @@ namespace Hali.Service.Mapping
             CreateMap<ProcessUpdateDto, Process>();
             CreateMap<AppUser, AppUserDto>().ReverseMap();
             CreateMap<AppUser, CompanyWithUserDto>();
-            CreateMap<OrderWithProcessOrderCreateDto, Order>();
-            CreateMap<OrderWithProcessOrderCreateDto, ProcessOrder>();
-            CreateMap<ProcessOrder, OrderWithProcessOrderDto>();
+            CreateMap<OrderWithProcessOrdersCreateDto, Order>();
+            CreateMap<Order, OrderWithProcessOrdersDto>();
+            CreateMap<OrderUpdateDto, Order>();
+            CreateMap<ProcessOrder, ProcessOrderDto>();
+            CreateMap<ProcessOrderCreateDto, ProcessOrder>();
+            CreateMap<ProcessOrderUpdateDto, ProcessOrder>();
         }
     }
 }

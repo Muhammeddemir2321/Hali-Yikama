@@ -15,9 +15,15 @@ namespace Hali.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateOrderWithProcessOrder(OrderWithProcessOrderCreateDto dto)
+        public async Task<IActionResult> CreateOrderWithProcessOrder(OrderWithProcessOrdersCreateDto dto)
         {
             return CreateActionResult(await _orderService.CreateOrderWithProcessOrderAsync(dto));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(OrderUpdateDto dto)
+        {
+            return CreateActionResult(await _orderService.UpdateAsync(dto));
         }
     }
 }

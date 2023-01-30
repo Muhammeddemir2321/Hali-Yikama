@@ -6,6 +6,7 @@ namespace Hali.Core.Services
 {
     public interface IOrderService : IService<Order, OrderDto>
     {
-        public Task<ResponseDto<OrderWithProcessOrderDto>> CreateOrderWithProcessOrderAsync(OrderWithProcessOrderCreateDto orderWithProcessOrderCreateDto);
+        public Task<ResponseDto<OrderWithProcessOrdersDto>> CreateOrderWithProcessOrderAsync(OrderWithProcessOrdersCreateDto orderWithProcessOrderCreateDto);
+        Task<ResponseDto<NoContent>> UpdateAsync(OrderUpdateDto dto);
     }
 }
