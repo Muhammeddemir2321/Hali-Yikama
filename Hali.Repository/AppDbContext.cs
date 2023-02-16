@@ -36,6 +36,7 @@ namespace Hali.Repository
             return base.SaveChangesAsync(cancellationToken);
         }
 
+
         public override int SaveChanges()
         {
             UpdateChangeTracker();
@@ -44,11 +45,11 @@ namespace Hali.Repository
 
         private void UpdateChangeTracker()
         {
-            foreach(var item in ChangeTracker.Entries())
+            foreach(var chanc in ChangeTracker.Entries())
             {
-                if(item.Entity is BaseEntitiy entityReference)
+                if(chanc.Entity is BaseEntitiy entityReference)
                 {
-                    switch(item.State)
+                    switch(chanc.State)
                     {
                         case EntityState.Added:
                             {
