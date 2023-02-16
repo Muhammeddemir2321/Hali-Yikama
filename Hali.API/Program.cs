@@ -81,6 +81,7 @@ else
     app.UseCustomException();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseCors(myAllowOrigins);

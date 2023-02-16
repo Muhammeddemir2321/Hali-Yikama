@@ -74,7 +74,7 @@ namespace Hali.Service.Services
 
             var clientTokenDto = _tokenService.CreateTokenByClient(client);
 
-            return ResponseDto<ClientTokenDto>.Succes(clientTokenDto, StatusCodes.Status201Created);
+            return  ResponseDto<ClientTokenDto>.Succes(clientTokenDto, StatusCodes.Status201Created);
         }
 
         public async Task<ResponseDto<TokenDto>> CreateTokenByRefreshTokenAsync(string refreshToken)
