@@ -7,7 +7,7 @@ namespace Hali.API.Controllers
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class AuthController : CustomBaseController
-    {
+    { 
         private readonly IAuthenticationService _authenticationService;
 
         public AuthController(IAuthenticationService authenticationService)

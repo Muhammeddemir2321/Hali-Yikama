@@ -1,5 +1,5 @@
 ﻿namespace Hali.Core.DTOs
-{
+{ 
     public class AppUserDto
     {
         public string Id { get; set; }

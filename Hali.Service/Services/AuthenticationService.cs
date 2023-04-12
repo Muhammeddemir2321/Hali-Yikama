@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace Hali.Service.Services
-{
+{ 
     public class AuthenticationService : IAuthenticationService
     {
         private readonly List<Client> _clients;

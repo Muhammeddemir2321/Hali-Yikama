@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Hali.Shared.Extensions
-{
+{ 
     public static class CustomJwtAuth
     {
         public static void AddCustomTokenAuth(this IServiceCollection services, CustomTokenOption tokenOptions)

@@ -45,11 +45,11 @@ namespace Hali.Repository
 
         private void UpdateChangeTracker()
         {
-            foreach(var chanc in ChangeTracker.Entries())
+            foreach(var item in ChangeTracker.Entries())
             {
-                if(chanc.Entity is BaseEntitiy entityReference)
+                if(item.Entity is BaseEntitiy entityReference)
                 {
-                    switch(chanc.State)
+                    switch(item.State)
                     {
                         case EntityState.Added:
                             {
