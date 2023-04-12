@@ -15,7 +15,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddFluentValidation(options => options.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
-//builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
+//builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters(); 
 builder.Services.UseCustomValidationResponce();
 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));

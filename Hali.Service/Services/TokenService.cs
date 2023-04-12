@@ -13,7 +13,7 @@ using System.Security.Cryptography;
 
 namespace Hali.Service.Services
 {
-    public class TokenService : ITokenService
+    public class TokenService : ITokenService 
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly CustomTokenOption _tokenOption;

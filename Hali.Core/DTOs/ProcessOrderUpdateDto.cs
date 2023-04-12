@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Hali.Core.DTOs
 {
-    public class ProcessOrderUpdateDto
+    public class ProcessOrderUpdateDto 
     {
         public int Id { get; set; }
         public double Price { get; set; }

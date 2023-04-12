@@ -5,7 +5,7 @@ namespace Hali.Shared.DTOs
     public class ResponseDto<T>
     {
         public T Data { get; set; }
-        public int StatusCode { get; set; }
+        public int StatusCode { get; set; } 
         public ErrorDto Error { get; set; }
         [JsonIgnore]
         public bool IsSuccessful { get; set; }

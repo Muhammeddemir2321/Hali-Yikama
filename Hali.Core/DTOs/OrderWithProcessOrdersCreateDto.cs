@@ -2,7 +2,7 @@
 {
     public class OrderWithProcessOrdersCreateDto
     {
-        public List<ProcessOrderCreateDto> ProcessOrders { get; set; }
+        public List<ProcessOrderCreateDto> ProcessOrders { get; set; } 
         public int Code { get; set; }
         public string Note { get; set; }
         public double TotalPrice { get; set; }

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hali.API.Controllers
 {
     public class ProcessOrdersController : CustomBaseController
-    {
+    { 
         private readonly IProcessOrderService _processOrderService;
 
         public ProcessOrdersController(IProcessOrderService processOrderService)

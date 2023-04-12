@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hali.Service.Services
 {
-    public class ProcessOrderService : Service<ProcessOrder, ProcessOrderDto>, IProcessOrderService
+    public class ProcessOrderService : Service<ProcessOrder, ProcessOrderDto>, IProcessOrderService 
     {
         private readonly IProcessOrderRepository _processOrderRepository;
         private readonly IOrderRepository _orderRepository;
