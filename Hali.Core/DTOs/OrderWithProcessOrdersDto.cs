@@ -2,6 +2,6 @@
 {
     public class OrderWithProcessOrdersDto : OrderDto
     {
-        public List<ProcessOrderDto> ProcessOrders { get; set; }
+        public List<ProcessOrderDto> ProcessOrders { get; set; } 
     }
 }
